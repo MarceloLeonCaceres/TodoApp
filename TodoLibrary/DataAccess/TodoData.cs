@@ -39,6 +39,14 @@ public class TodoData : ITodoData
         return result.FirstOrDefault();
 
     }
+
+    public async Task<TodoModel?> Create_2(int assignedTo, string task, bool completado)
+    {
+        var result = await _sql.LoadData<TodoModel, dynamic>("spTodos_Create_2",
+            new { AssignedTo = assignedTo, Task = task, Completado = completado }, "Default");
+        return result.FirstOrDefault();
+    }
+
     public Task UpdateTask(int assignedTo, int todoId, string task)
     {
 

@@ -78,6 +78,25 @@ namespace TodoApi.Controllers
             }
         }
 
+
+        // POST api/todos/c
+        [HttpPost("2", Name = "CreateTodo_2")]
+        public async Task<ActionResult<TodoModel>> Post_2(string task, string completed)
+        {
+            _logger.LogInformation(@"POST: api/todos/2 con task = {task}", task);
+            try
+            {
+                var output = await _data.Create_2(GetUserId(), task, bool.Parse(completed));
+                _logger.LogInformation("POST: api/todos/2  ya pasó la parte crítica");
+                return Ok(output);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "The POST: api/todos/2 call failed. La tarea fue {Task}", task);
+                return BadRequest();
+            }
+        }
+
         // PUT api/todos/5
         [HttpPut("{todoId}", Name = "UpdateTodoTask")]
         public async Task<ActionResult> Put(int todoId, [FromBody] string task)
