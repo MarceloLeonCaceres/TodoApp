@@ -40,10 +40,10 @@ public class TodoData : ITodoData
 
     }
 
-    public async Task<TodoModel?> Create_2(int assignedTo, string task, bool completado)
+    public async Task<TodoModel?> Create_2(int assignedTo, TodoModel todoModel)
     {
         var result = await _sql.LoadData<TodoModel, dynamic>("spTodos_Create_2",
-            new { AssignedTo = assignedTo, Task = task, Completado = completado }, "Default");
+            new { AssignedTo = assignedTo, Task = todoModel.Task, IsComplete = todoModel.isComplete}, "Default");
         return result.FirstOrDefault();
     }
 
